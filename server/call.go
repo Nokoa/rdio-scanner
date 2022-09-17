@@ -132,7 +132,7 @@ func (calls *Calls) CheckDuplicate(call *Call, msTimeFrame uint, db *Database) b
 	from := call.DateTime.Add(-d)
 	to := call.DateTime.Add(d)
 
-	query := fmt.Sprintf("select count(*) from `rdioScannerCalls` where (`dateTime` between '%v' and '%v') and `system` = %v and `talkgroup` = %v", from, to, call.System, call.Talkgroup)
+	query := fmt.Sprintf("select count(*) from `rdioScannerCalls` where (`dateTime` between '%v' and '%v') and `system` = %v and `talkgroup` = %v and 'source' = %v", from, to, call.System, call.Talkgroup, call.Source)
 	if err := db.Sql.QueryRow(query).Scan(&count); err != nil {
 		return false
 	}
